@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.qubership.atp.auth.springbootstarter.AtpAuthAutoConfiguration, \
+  org.qubership.atp.auth.springbootstarter.AtpAuthWebSocketAutoConfiguration
