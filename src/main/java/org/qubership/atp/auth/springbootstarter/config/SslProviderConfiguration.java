@@ -22,14 +22,13 @@ import java.util.List;
 
 import javax.net.ssl.TrustManagerFactory;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import org.qubership.atp.auth.springbootstarter.ssl.KeyStoreProvider;
 import org.qubership.atp.auth.springbootstarter.ssl.Provider;
 import org.qubership.atp.auth.springbootstarter.ssl.SslCertificateProvider;
 import org.qubership.atp.auth.springbootstarter.ssl.TrustManagerFactoryProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(

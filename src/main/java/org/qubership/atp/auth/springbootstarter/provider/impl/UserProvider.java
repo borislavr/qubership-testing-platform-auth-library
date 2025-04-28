@@ -22,10 +22,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.keycloak.KeycloakPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
 import org.qubership.atp.auth.springbootstarter.ssl.Provider;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserProvider implements Provider<UserInfo> {
     private final UUID uuid = UUID.fromString("16df9e34-cf21-4360-b89c-785a4ed8f57d");

@@ -28,6 +28,15 @@ import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticatedActionsFilter;
 import org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticationProcessingFilter;
+import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
+import org.qubership.atp.auth.springbootstarter.holders.DataContextHolder;
+import org.qubership.atp.auth.springbootstarter.provider.impl.UserProvider;
+import org.qubership.atp.auth.springbootstarter.security.filters.AnonymousSupportKeycloakAuthenticatedActionsFilter;
+import org.qubership.atp.auth.springbootstarter.security.permissions.EntityAccessEnforcement;
+import org.qubership.atp.auth.springbootstarter.security.permissions.PolicyEnforcement;
+import org.qubership.atp.auth.springbootstarter.services.UserGroupService;
+import org.qubership.atp.auth.springbootstarter.services.UsersService;
+import org.qubership.atp.auth.springbootstarter.ssl.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -44,16 +53,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
-
-import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
-import org.qubership.atp.auth.springbootstarter.holders.DataContextHolder;
-import org.qubership.atp.auth.springbootstarter.provider.impl.UserProvider;
-import org.qubership.atp.auth.springbootstarter.security.filters.AnonymousSupportKeycloakAuthenticatedActionsFilter;
-import org.qubership.atp.auth.springbootstarter.security.permissions.EntityAccessEnforcement;
-import org.qubership.atp.auth.springbootstarter.security.permissions.PolicyEnforcement;
-import org.qubership.atp.auth.springbootstarter.services.UserGroupService;
-import org.qubership.atp.auth.springbootstarter.services.UsersService;
-import org.qubership.atp.auth.springbootstarter.ssl.Provider;
 
 @KeycloakConfiguration
 @EnableWebSecurity

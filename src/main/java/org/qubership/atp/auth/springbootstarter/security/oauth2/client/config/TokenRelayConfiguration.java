@@ -16,6 +16,9 @@
 
 package org.qubership.atp.auth.springbootstarter.security.oauth2.client.config;
 
+import org.qubership.atp.auth.springbootstarter.security.oauth2.client.relay.NoClientOAuth2ProtectedResourceDetails;
+import org.qubership.atp.auth.springbootstarter.security.oauth2.client.relay.TokenRelayKeycloakClientContext;
+import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -24,10 +27,6 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.web.client.RestTemplate;
-
-import org.qubership.atp.auth.springbootstarter.security.oauth2.client.relay.NoClientOAuth2ProtectedResourceDetails;
-import org.qubership.atp.auth.springbootstarter.security.oauth2.client.relay.TokenRelayKeycloakClientContext;
-import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 
 @Configuration
 @Profile("default")

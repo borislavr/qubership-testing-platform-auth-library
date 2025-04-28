@@ -22,9 +22,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-
 import org.qubership.atp.auth.springbootstarter.entities.Group;
 import org.qubership.atp.auth.springbootstarter.entities.Operation;
 import org.qubership.atp.auth.springbootstarter.entities.Operations;
@@ -33,6 +30,9 @@ import org.qubership.atp.auth.springbootstarter.entities.Role;
 import org.qubership.atp.auth.springbootstarter.holders.DataContextHolder;
 import org.qubership.atp.auth.springbootstarter.services.UserGroupService;
 import org.qubership.atp.auth.springbootstarter.services.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

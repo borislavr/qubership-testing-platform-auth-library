@@ -16,6 +16,7 @@
 
 package org.qubership.atp.auth.springbootstarter.config;
 
+import org.qubership.atp.auth.springbootstarter.feign.exception.FeignClientExceptionErrorDecoder;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -29,7 +30,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.qubership.atp.auth.springbootstarter.feign.exception.FeignClientExceptionErrorDecoder;
 import feign.Logger;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
@@ -69,7 +69,7 @@ public class FeignConfiguration {
     /**
      * Create objectMapper for feign client message converter.
      *
-     * @return {@ling ObjectMapper} bean
+     * @return ObjectMapper bean
      */
     @Bean
     public ObjectMapper feignClientObjectMapper() {

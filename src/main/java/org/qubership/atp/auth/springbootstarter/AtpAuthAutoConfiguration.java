@@ -16,10 +16,6 @@
 
 package org.qubership.atp.auth.springbootstarter;
 
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-
 import org.qubership.atp.auth.springbootstarter.config.DisableSecurityConfiguration;
 import org.qubership.atp.auth.springbootstarter.config.FeignCapabilityConfiguration;
 import org.qubership.atp.auth.springbootstarter.config.HttpClientsConfiguration;
@@ -32,6 +28,9 @@ import org.qubership.atp.auth.springbootstarter.config.UndertowWebMvcConfigurati
 import org.qubership.atp.auth.springbootstarter.config.UtilsConfiguration;
 import org.qubership.atp.auth.springbootstarter.handlers.GlobalExceptionHandler;
 import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.TokenRelayConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
 @EnableCaching

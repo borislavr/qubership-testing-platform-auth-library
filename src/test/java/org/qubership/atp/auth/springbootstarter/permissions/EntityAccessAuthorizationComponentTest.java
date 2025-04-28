@@ -16,14 +16,14 @@
 
 package org.qubership.atp.auth.springbootstarter.permissions;
 
-import static org.qubership.atp.auth.springbootstarter.entities.Role.ATP_ADMIN;
-import static org.qubership.atp.auth.springbootstarter.entities.Role.ATP_SUPPORT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.qubership.atp.auth.springbootstarter.entities.Role.ATP_ADMIN;
+import static org.qubership.atp.auth.springbootstarter.entities.Role.ATP_SUPPORT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,8 +41,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
-
 import org.qubership.atp.auth.springbootstarter.entities.Group;
 import org.qubership.atp.auth.springbootstarter.entities.Operation;
 import org.qubership.atp.auth.springbootstarter.entities.Operations;
@@ -54,6 +52,7 @@ import org.qubership.atp.auth.springbootstarter.security.permissions.EntityAcces
 import org.qubership.atp.auth.springbootstarter.services.UserGroupService;
 import org.qubership.atp.auth.springbootstarter.services.UsersService;
 import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityAccessAuthorizationComponentTest {

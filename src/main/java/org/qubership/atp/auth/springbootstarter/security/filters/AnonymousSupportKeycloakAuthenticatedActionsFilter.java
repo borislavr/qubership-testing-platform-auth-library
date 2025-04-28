@@ -30,12 +30,11 @@ import org.keycloak.adapters.AuthenticatedActionsHandler;
 import org.keycloak.adapters.OIDCHttpFacade;
 import org.keycloak.adapters.spi.HttpFacade;
 import org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticatedActionsFilter;
+import org.qubership.atp.auth.springbootstarter.security.facades.AnonymousSupportSimpleHttpFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-
-import org.qubership.atp.auth.springbootstarter.security.facades.AnonymousSupportSimpleHttpFacade;
 
 public class AnonymousSupportKeycloakAuthenticatedActionsFilter extends KeycloakAuthenticatedActionsFilter {
 

@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.qubership.atp.auth.springbootstarter.entities.Operation;
 import org.qubership.atp.auth.springbootstarter.entities.Permissions;
 import org.qubership.atp.auth.springbootstarter.entities.Project;

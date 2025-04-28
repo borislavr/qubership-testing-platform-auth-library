@@ -21,11 +21,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.context.annotation.Import;
-
 import org.qubership.atp.auth.springbootstarter.config.HttpClientsConfiguration;
 import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.M2MTokenConfiguration;
 import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.Oauth2FeignClientConfiguration;
+import org.springframework.context.annotation.Import;
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

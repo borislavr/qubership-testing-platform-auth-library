@@ -26,6 +26,7 @@ import java.util.HashMap;
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.Test;
+import org.qubership.atp.auth.springbootstarter.exceptions.AtpException;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +36,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-
-import org.qubership.atp.auth.springbootstarter.exceptions.AtpException;
 
 public class GlobalExceptionHandlerTest {
 

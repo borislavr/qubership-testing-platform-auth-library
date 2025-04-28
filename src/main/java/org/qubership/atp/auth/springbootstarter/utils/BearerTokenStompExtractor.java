@@ -20,9 +20,8 @@ import static org.qubership.atp.auth.springbootstarter.Constants.BEARER_TOKEN_TY
 
 import java.util.Objects;
 
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-
 import org.qubership.atp.auth.springbootstarter.Constants;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 
 public class BearerTokenStompExtractor implements HeaderValueExtractor<String, StompHeaderAccessor> {
     @Override

@@ -22,6 +22,7 @@
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <keycloak.version>22.0.1</keycloak.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <google.guava.version>32.0.0-jre</google.guava.version>
         <lombok.version>1.18.30</lombok.version>
         <maven.pmd.plugin.version>3.8</maven.pmd.plugin.version>
         <spotbugs.maven.plugin.version>4.7.3.0</spotbugs.maven.plugin.version>
@@ -84,6 +85,10 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
@@ -282,6 +287,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webflux</artifactId>
                 <version>5.3.33</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google.guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

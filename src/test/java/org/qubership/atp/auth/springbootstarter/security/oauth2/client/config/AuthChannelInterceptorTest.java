@@ -32,6 +32,8 @@ import javax.security.auth.Subject;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.qubership.atp.auth.springbootstarter.services.BearerTokenWebSocketAuthenticator;
+import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessagingException;
@@ -43,13 +45,10 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 
-import org.qubership.atp.auth.springbootstarter.services.BearerTokenWebSocketAuthenticator;
-import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
-
 class AuthChannelInterceptorTest {
 
     private BearerTokenWebSocketAuthenticator webSocketAuthenticatorService;
-    private BearerTokenStompExtractor bearerTokenStompExtractor = new BearerTokenStompExtractor();
+    private final BearerTokenStompExtractor bearerTokenStompExtractor = new BearerTokenStompExtractor();
     private MessageChannel channel;
 
     private AuthChannelInterceptor authChannelInterceptor;

@@ -20,17 +20,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.qubership.atp.auth.springbootstarter.entities.ObjectPermissions;
 import org.qubership.atp.auth.springbootstarter.entities.Operations;
 import org.qubership.atp.auth.springbootstarter.entities.Project;
 import org.qubership.atp.auth.springbootstarter.entities.ServiceEntities;
 import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(name = "${feign.atp.users.name}", url = "${feign.atp.users.url}")
 public interface UsersFeignClient {

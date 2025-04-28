@@ -30,7 +30,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import org.qubership.atp.auth.springbootstarter.entities.Group;
 import org.qubership.atp.auth.springbootstarter.entities.Project;
 import org.qubership.atp.auth.springbootstarter.entities.Role;

@@ -16,11 +16,10 @@
 
 package org.qubership.atp.auth.springbootstarter;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-
 import org.qubership.atp.auth.springbootstarter.config.WebSocketAuthenticationSecurityConfig;
 import org.qubership.atp.auth.springbootstarter.config.WebSocketSecurityConfig;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({WebSocketAuthenticationSecurityConfig.class, WebSocketSecurityConfig.class})

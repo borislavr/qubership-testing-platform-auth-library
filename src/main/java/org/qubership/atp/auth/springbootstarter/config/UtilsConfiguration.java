@@ -19,15 +19,14 @@ package org.qubership.atp.auth.springbootstarter.config;
 import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-
 import org.qubership.atp.auth.springbootstarter.holders.DataContextHolder;
 import org.qubership.atp.auth.springbootstarter.holders.UserIdContextHolder;
 import org.qubership.atp.auth.springbootstarter.holders.UserRolesContextHolder;
 import org.qubership.atp.auth.springbootstarter.utils.BearerTokenHttpExtractor;
 import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile("default")

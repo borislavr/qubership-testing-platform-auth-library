@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.qubership.atp.auth.springbootstarter.security.interceptors.MdcHttpRequestInterceptor;
+import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -35,9 +37,6 @@ import org.springframework.security.oauth2.client.token.AccessTokenProviderChain
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsAccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.web.client.RestTemplate;
-
-import org.qubership.atp.auth.springbootstarter.security.interceptors.MdcHttpRequestInterceptor;
-import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 
 @Configuration
 @ConditionalOnProperty(

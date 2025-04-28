@@ -19,6 +19,13 @@ package org.qubership.atp.auth.springbootstarter.config;
 import java.util.Set;
 import java.util.UUID;
 
+import org.qubership.atp.auth.springbootstarter.entities.Operation;
+import org.qubership.atp.auth.springbootstarter.entities.Project;
+import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
+import org.qubership.atp.auth.springbootstarter.provider.impl.DisableSecurityUserProvider;
+import org.qubership.atp.auth.springbootstarter.security.permissions.PolicyEnforcement;
+import org.qubership.atp.auth.springbootstarter.ssl.Provider;
+import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,14 +36,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import org.qubership.atp.auth.springbootstarter.entities.Operation;
-import org.qubership.atp.auth.springbootstarter.entities.Project;
-import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
-import org.qubership.atp.auth.springbootstarter.provider.impl.DisableSecurityUserProvider;
-import org.qubership.atp.auth.springbootstarter.security.permissions.PolicyEnforcement;
-import org.qubership.atp.auth.springbootstarter.ssl.Provider;
-import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 
 @Configuration
 @Profile("disable-security")

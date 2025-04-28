@@ -17,6 +17,9 @@
 package org.qubership.atp.auth.springbootstarter.config;
 
 import org.keycloak.adapters.KeycloakConfigResolver;
+import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.AuthChannelInterceptor;
+import org.qubership.atp.auth.springbootstarter.services.BearerTokenWebSocketAuthenticator;
+import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,10 +29,6 @@ import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-
-import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.AuthChannelInterceptor;
-import org.qubership.atp.auth.springbootstarter.services.BearerTokenWebSocketAuthenticator;
-import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
 
 
 @Configuration

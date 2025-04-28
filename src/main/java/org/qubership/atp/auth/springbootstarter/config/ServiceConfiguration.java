@@ -18,14 +18,14 @@ package org.qubership.atp.auth.springbootstarter.config;
 
 import java.util.UUID;
 
+import org.qubership.atp.auth.springbootstarter.services.UsersService;
+import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
 
-import org.qubership.atp.auth.springbootstarter.services.UsersService;
-import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
 import lombok.AllArgsConstructor;
 
 @Configuration

@@ -23,6 +23,13 @@ import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
+import org.qubership.atp.auth.springbootstarter.entities.ObjectPermissions;
+import org.qubership.atp.auth.springbootstarter.entities.Operations;
+import org.qubership.atp.auth.springbootstarter.entities.Permissions;
+import org.qubership.atp.auth.springbootstarter.entities.Project;
+import org.qubership.atp.auth.springbootstarter.entities.ServiceEntities;
+import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
+import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,13 +39,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.qubership.atp.auth.springbootstarter.entities.ObjectPermissions;
-import org.qubership.atp.auth.springbootstarter.entities.Operations;
-import org.qubership.atp.auth.springbootstarter.entities.Permissions;
-import org.qubership.atp.auth.springbootstarter.entities.Project;
-import org.qubership.atp.auth.springbootstarter.entities.ServiceEntities;
-import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
-import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

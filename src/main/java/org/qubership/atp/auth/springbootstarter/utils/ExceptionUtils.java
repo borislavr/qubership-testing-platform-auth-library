@@ -16,9 +16,9 @@
 
 package org.qubership.atp.auth.springbootstarter.utils;
 
+import org.qubership.atp.auth.springbootstarter.exceptions.AtpException;
 import org.slf4j.Logger;
 
-import org.qubership.atp.auth.springbootstarter.exceptions.AtpException;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

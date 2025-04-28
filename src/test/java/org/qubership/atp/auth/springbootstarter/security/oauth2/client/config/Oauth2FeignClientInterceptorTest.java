@@ -16,10 +16,10 @@
 
 package org.qubership.atp.auth.springbootstarter.security.oauth2.client.config;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.qubership.atp.auth.springbootstarter.Constants.AUTHORIZATION_HEADER_NAME;
 import static org.qubership.atp.auth.springbootstarter.Constants.BEARER_TOKEN_TYPE;
 import static org.qubership.atp.auth.springbootstarter.mocks.MockUtils.mockSecurityContextHolder;
-import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Collection;
 import java.util.List;

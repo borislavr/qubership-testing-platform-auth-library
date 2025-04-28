@@ -21,11 +21,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.context.annotation.Import;
-
 import org.qubership.atp.auth.springbootstarter.config.ReactiveHttpClientsConfiguration;
 import org.qubership.atp.auth.springbootstarter.config.SslProviderConfiguration;
 import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.TokenRelayReactiveConfiguration;
+import org.springframework.context.annotation.Import;
 
 /**
  * Enables token relay web client. Template may be autowired using qualifier

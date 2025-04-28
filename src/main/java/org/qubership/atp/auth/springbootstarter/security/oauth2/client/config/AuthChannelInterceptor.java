@@ -16,6 +16,8 @@
 
 package org.qubership.atp.auth.springbootstarter.security.oauth2.client.config;
 
+import org.qubership.atp.auth.springbootstarter.services.BearerTokenWebSocketAuthenticator;
+import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessagingException;
@@ -26,8 +28,6 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
-import org.qubership.atp.auth.springbootstarter.services.BearerTokenWebSocketAuthenticator;
-import org.qubership.atp.auth.springbootstarter.utils.BearerTokenStompExtractor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

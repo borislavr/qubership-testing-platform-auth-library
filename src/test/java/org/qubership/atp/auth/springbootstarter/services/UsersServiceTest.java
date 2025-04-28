@@ -25,12 +25,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.qubership.atp.auth.springbootstarter.entities.ServiceEntities;
+import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.qubership.atp.auth.springbootstarter.entities.ServiceEntities;
-import org.qubership.atp.auth.springbootstarter.services.client.UsersFeignClient;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UsersServiceTest {

@@ -16,14 +16,13 @@
 
 package org.qubership.atp.auth.springbootstarter.security.oauth2.client.config;
 
+import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-
-import org.qubership.atp.common.logging.interceptor.RestTemplateLogInterceptor;
 
 @Configuration
 public class WithoutM2MTokenConfiguration {

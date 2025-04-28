@@ -24,6 +24,9 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.util.Strings;
+import org.qubership.atp.auth.springbootstarter.exceptions.AtpException;
+import org.qubership.atp.auth.springbootstarter.exceptions.AtpRequestValidationException;
+import org.qubership.atp.auth.springbootstarter.feign.exception.FeignClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
@@ -40,9 +43,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
-import org.qubership.atp.auth.springbootstarter.exceptions.AtpException;
-import org.qubership.atp.auth.springbootstarter.exceptions.AtpRequestValidationException;
-import org.qubership.atp.auth.springbootstarter.feign.exception.FeignClientException;
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice

@@ -19,13 +19,13 @@ package org.qubership.atp.auth.springbootstarter.config;
 
 import javax.net.ssl.TrustManagerFactory;
 
+import org.qubership.atp.auth.springbootstarter.ssl.Provider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 
-import org.qubership.atp.auth.springbootstarter.ssl.Provider;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;

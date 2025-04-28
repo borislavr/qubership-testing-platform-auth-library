@@ -16,6 +16,7 @@
 
 package org.qubership.atp.auth.springbootstarter.security.oauth2.client.config;
 
+import org.qubership.atp.auth.springbootstarter.security.oauth2.client.relay.TokenRelayKeycloakClientContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -25,12 +26,10 @@ import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import org.qubership.atp.auth.springbootstarter.security.oauth2.client.relay.TokenRelayKeycloakClientContext;
-
 @Configuration
 @Profile("default")
 public class TokenRelayReactiveConfiguration {
-    private TokenRelayKeycloakClientContext tokenContext = new TokenRelayKeycloakClientContext(
+    private final TokenRelayKeycloakClientContext tokenContext = new TokenRelayKeycloakClientContext(
             new DefaultAccessTokenRequest());
 
     /**

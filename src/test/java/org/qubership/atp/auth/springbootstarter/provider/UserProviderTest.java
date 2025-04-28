@@ -16,21 +16,21 @@
 
 package org.qubership.atp.auth.springbootstarter.provider;
 
-import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
-import org.qubership.atp.auth.springbootstarter.provider.impl.UserProvider;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.qubership.atp.auth.springbootstarter.mocks.MockUtils.mockSecurityContextHolder;
+
+import java.util.UUID;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.representations.AccessToken;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.qubership.atp.auth.springbootstarter.entities.UserInfo;
+import org.qubership.atp.auth.springbootstarter.provider.impl.UserProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.UUID;
-
-import static org.qubership.atp.auth.springbootstarter.mocks.MockUtils.mockSecurityContextHolder;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserProviderTest {

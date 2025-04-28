@@ -23,14 +23,15 @@ import java.util.UUID;
 import org.qubership.atp.auth.springbootstarter.entities.Group;
 import org.qubership.atp.auth.springbootstarter.entities.Project;
 import org.qubership.atp.auth.springbootstarter.holders.DataContextHolder;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class UserGroupService {
 
-    private DataContextHolder<UUID> userIdContextHolder;
-    private UsersService usersService;
-    private DataContextHolder<Set<String>> userRolesContextHolder;
+    private final DataContextHolder<UUID> userIdContextHolder;
+    private final UsersService usersService;
+    private final DataContextHolder<Set<String>> userRolesContextHolder;
 
     /**
      * UserGroupService component.
