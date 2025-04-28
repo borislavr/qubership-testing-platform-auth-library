@@ -15,7 +15,7 @@
 </dependencies>
 ```
 
-### 2. Add properties into application.properties
+### 2. Add Authentication properties into application.properties
 ```text
 ##==================atp-auth-spring-boot-starter=====================
 spring.cache.cache-names: projects, auth_objects
@@ -43,7 +43,7 @@ spring.kafka.producer.bootstrap-servers=${KAFKA_SERVERS:kafka:9092}
 
 Please find additional information about how to integrate microservice with internal gateway in User Guide
 
-## Authorization 
+## Authorization
 ### 1. Turn ON authentication according instructions above
 ### 2. Use @PreAuthorize() annotation
 The annotation should be placed before each backend method, if permissions should be checked before its execution.
@@ -99,11 +99,11 @@ EXECUTE
 @EntityAccess.isAdmin()
 ```
 
-Authorization is considered successful automatically, independently on `@PreAuthorize()` checks, if the user has 
+Authorization is considered successful automatically, independently on `@PreAuthorize()` checks, if the user has
 `ATP_ADMIN` role. This role is configured and assigned to users in Keycloak admin console.
 
 ## M2MRestTemplate
-### 1. Add properties into application.properties
+### 1. Add Keycloak properties into application.properties
 ```text
 keycloak.resource=${KEYCLOAK_RESOURCE}
 keycloak.credentials.secret=${KEYCLOAK_SECRET}
@@ -124,11 +124,11 @@ RestTemplate m2mRestTemplate;
 ### 4. Client roles configuration
 Example below shows, how one can allow a catalogue client to get information about users:
 1. Open client settings
-![](doc/images/client_settings.png)
+![Client Settings Edit page](doc/images/client_settings.png)
 2. Switch to Service Account Roles tab
-![](doc/images/sar.png)
-3. Select roles realm-management and view-users 
-![](doc/images/select_role.png)
+![Service Account Roles tab](doc/images/sar.png)
+3. Select roles realm-management and view-users
+![Select roles](doc/images/select_role.png)
 4. Click 'Add selected' button
 
 ### Remarks
@@ -142,9 +142,9 @@ Default value is true.
 
 ## RelayRestTemplate and RelayWebClient
 
-They are used to add token of current authenticated user to all requests. RelayRestTemplate is turned on be default.
+They are used to add token of current authenticated user to all requests. RelayRestTemplate is turned on by default.
 
-### 1. The configuration can be turned ON by means of annotation
+### 1. RelayWebClient configuration can be turned ON by means of annotation
 ```java
 @EnableTokenRelayWebClient
 ```
@@ -165,7 +165,7 @@ WebClient relayWebClient;
 The interceptor uses token of the current authenticated user in requests to services.
 If the current security context doesn't contain user token, service token is used (the same way as in m2m rest template).
 
-### 1. The configuration can be turned ON by means of annotation
+### 1. Feign Client Interceptor configuration can be turned ON by means of annotation
 ```java
 @EnableOauth2FeignClientInterceptor
 ```
@@ -175,7 +175,7 @@ If the current security context doesn't contain user token, service token is use
 This is default mode. It works in case 'default' profile is active.
 
 ### Turn OFF
-This mode can be selected if: 
+This mode can be selected if:
 
 1.'disable-security' profile is set active:
 
@@ -189,7 +189,7 @@ keycloak.enabled=false
 ```
 
 ## Ssl certificate verification
-By default, SSL certificate verification is turned off. 
+By default, SSL certificate verification is turned off.
 To turn if on, one needs to use 'atp-auth.ssl.certificate.verify' property, and also to set path-to-certificates-folder:
 ```text
 atp-auth.ssl.certificate.verify=true
@@ -209,7 +209,7 @@ atp.feign.micrometer.enable=false
 ```
 
 ## RestTemplate Logging
-### 1. Add properties into application.properties
+### 1. Add RestTemplate Logging properties into application.properties
 ```text
 atp.logging.resttemplate.headers=${ATP_HTTP_LOGGING_HEADERS:true}
 atp.logging.resttemplate.headers.ignore=${ATP_HTTP_LOGGING_HEADERS_IGNORE:}
@@ -251,7 +251,7 @@ To turn logging ON at local machine, one should add options into JVM parameters:
 
 2. Import `AtpHttpClientModule` into `app.module.ts` from `@..../atp-common-ui/dist/src/modules/common/http/http-client.module`
 
-3. Turn ON login in the `atp-single-ui` component: 
+3. Turn ON login in the `atp-single-ui` component:
 ```html
 <atp-single-ui [projectId]="_projectId$ | async"
                [loginRequired]="_loginRequired"
