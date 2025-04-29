@@ -164,6 +164,16 @@ public class EntityAccessAuthorizationComponentTest {
         assertTrue(authorizationComponent.checkAccess("test", new HashSet<>(Collections.singletonList(projectId)), Operation.READ));
     }
 
+    private void checkOperationPolicies(Project project, Operation operation, boolean[] expectedPermissions) {
+        for (boolean expectedPermission : expectedPermissions) {
+            if (expectedPermission) {
+                assertTrue(authorizationComponent.checkPoliciesForOperation(project, operation));
+            } else {
+                assertFalse(authorizationComponent.checkPoliciesForOperation(project, operation));
+            }
+        }
+    }
+
     @Test
     public void onEntityAccessEnforcement_CheckPoliciesForOperation_withoutServiceEntity() {
         Project project = new Project();
@@ -204,47 +214,32 @@ public class EntityAccessAuthorizationComponentTest {
                 // check UNLOCK permissions for all roles
                 .thenReturn(Group.LEAD, Group.ENGINEER, Group.DEVOPS, Group.EXECUTOR, Group.SUPPORT);
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.CREATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.CREATE));
+        checkOperationPolicies(project, Operation.CREATE, new boolean[]{true, true, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.READ));
+        checkOperationPolicies(project, Operation.READ, new boolean[]{true, true, true, true, true});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.UPDATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UPDATE));
+        checkOperationPolicies(project, Operation.UPDATE, new boolean[]{true, true, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.DELETE));
+        checkOperationPolicies(project, Operation.DELETE, new boolean[]{true, false, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.EXECUTE));
+        checkOperationPolicies(project, Operation.EXECUTE, new boolean[]{true, true, true, true, true});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.LOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.LOCK));
+        checkOperationPolicies(project, Operation.LOCK, new boolean[]{true, true, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation(project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation(project, Operation.UNLOCK));
+        checkOperationPolicies(project, Operation.UNLOCK, new boolean[]{true, false, false, false, false});
+    }
+
+    private void checkEntityOperationPolicies(String entityName,
+                                              Project project,
+                                              Operation operation,
+                                              boolean[] expectedPermissions) {
+        for (boolean expectedPermission : expectedPermissions) {
+            if (expectedPermission) {
+                assertTrue(authorizationComponent.checkPoliciesForOperation(entityName, project, operation));
+            } else {
+                assertFalse(authorizationComponent.checkPoliciesForOperation(entityName, project, operation));
+            }
+        }
     }
 
     @Test
@@ -286,47 +281,26 @@ public class EntityAccessAuthorizationComponentTest {
                 .thenReturn(Group.LEAD, Group.ENGINEER, Group.DEVOPS, Group.EXECUTOR, Group.SUPPORT);
 
         // check that custom permission override default values
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
+        checkEntityOperationPolicies("test", project, Operation.CREATE,
+                new boolean[]{false, false, true, true, true});
 
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
+        checkEntityOperationPolicies("test", project, Operation.READ,
+                new boolean[]{false, false, false, false, false});
 
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
+        checkEntityOperationPolicies("test", project, Operation.UPDATE,
+                new boolean[]{false, false, true, true, true});
 
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
+        checkEntityOperationPolicies("test", project, Operation.DELETE,
+                new boolean[]{false, true, true, true, true});
 
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
+        checkEntityOperationPolicies("test", project, Operation.EXECUTE,
+                new boolean[]{false, false, false, false, false});
 
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
+        checkEntityOperationPolicies("test", project, Operation.LOCK,
+                new boolean[]{false, false, true, true, true});
 
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
+        checkEntityOperationPolicies("test", project, Operation.UNLOCK,
+                new boolean[]{false, true, true, true, true});
     }
 
     @Test
@@ -362,47 +336,26 @@ public class EntityAccessAuthorizationComponentTest {
                 .thenReturn(Group.LEAD, Group.ENGINEER, Group.DEVOPS, Group.EXECUTOR, Group.SUPPORT)
                 .thenReturn(Group.LEAD, Group.ENGINEER, Group.DEVOPS, Group.EXECUTOR, Group.SUPPORT);
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.CREATE));
+        checkEntityOperationPolicies("test", project, Operation.CREATE,
+                new boolean[]{true, true, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.READ));
+        checkEntityOperationPolicies("test", project, Operation.READ,
+                new boolean[]{true, true, true, true, true});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UPDATE));
+        checkEntityOperationPolicies("test", project, Operation.UPDATE,
+                new boolean[]{true, true, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.DELETE));
+        checkEntityOperationPolicies("test", project, Operation.DELETE,
+                new boolean[]{true, false, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.EXECUTE));
+        checkEntityOperationPolicies("test", project, Operation.EXECUTE,
+                new boolean[]{true, true, true, true, true});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.LOCK));
+        checkEntityOperationPolicies("test", project, Operation.LOCK,
+                new boolean[]{true, true, false, false, false});
 
-        assertTrue(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
-        assertFalse(authorizationComponent.checkPoliciesForOperation("test", project, Operation.UNLOCK));
+        checkEntityOperationPolicies("test", project, Operation.UNLOCK,
+                new boolean[]{true, false, false, false, false});
     }
 
     @Test

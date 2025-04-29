@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
@@ -59,8 +59,8 @@ class Oauth2FeignClientInterceptorTest {
         interceptor.setAuthorizationHeader(requestTemplate, expectedToken);
 
         Collection<String> authorizationHeaders = requestTemplate.headers().get(AUTHORIZATION_HEADER_NAME);
-        Assert.assertEquals(1, authorizationHeaders.size());
-        Assert.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
+        Assertions.assertEquals(1, authorizationHeaders.size());
+        Assertions.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
                 authorizationHeaders.iterator().next());
     }
 
@@ -78,8 +78,8 @@ class Oauth2FeignClientInterceptorTest {
         interceptor.setAuthorizationHeader(requestTemplate, expectedToken);
 
         Collection<String> authorizationHeaders = requestTemplate.headers().get(AUTHORIZATION_HEADER_NAME);
-        Assert.assertEquals(1, authorizationHeaders.size());
-        Assert.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
+        Assertions.assertEquals(1, authorizationHeaders.size());
+        Assertions.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
                 authorizationHeaders.iterator().next());
     }
 
@@ -97,8 +97,8 @@ class Oauth2FeignClientInterceptorTest {
         interceptor.apply(requestTemplate);
 
         Collection<String> authorizationHeaders = requestTemplate.headers().get(AUTHORIZATION_HEADER_NAME);
-        Assert.assertEquals(1, authorizationHeaders.size());
-        Assert.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
+        Assertions.assertEquals(1, authorizationHeaders.size());
+        Assertions.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
                 authorizationHeaders.iterator().next());
     }
 
@@ -129,8 +129,8 @@ class Oauth2FeignClientInterceptorTest {
         RequestTemplate requestTemplate = new RequestTemplate();
         interceptor.apply(requestTemplate);
         Collection<String> authorizationHeaders = requestTemplate.headers().get(AUTHORIZATION_HEADER_NAME);
-        Assert.assertEquals(1, authorizationHeaders.size());
-        Assert.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
+        Assertions.assertEquals(1, authorizationHeaders.size());
+        Assertions.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
                 authorizationHeaders.iterator().next());
     }
 
@@ -166,8 +166,8 @@ class Oauth2FeignClientInterceptorTest {
         interceptor.apply(requestTemplate);
 
         Collection<String> authorizationHeaders = requestTemplate.headers().get(AUTHORIZATION_HEADER_NAME);
-        Assert.assertEquals(1, authorizationHeaders.size());
-        Assert.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
+        Assertions.assertEquals(1, authorizationHeaders.size());
+        Assertions.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
                 authorizationHeaders.iterator().next());
     }
 
@@ -188,8 +188,8 @@ class Oauth2FeignClientInterceptorTest {
         RequestTemplate requestTemplate = new RequestTemplate();
         interceptor.apply(requestTemplate);
         Collection<String> authorizationHeaders = requestTemplate.headers().get(AUTHORIZATION_HEADER_NAME);
-        Assert.assertEquals(1, authorizationHeaders.size());
-        Assert.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
+        Assertions.assertEquals(1, authorizationHeaders.size());
+        Assertions.assertEquals(String.format("%s %s", BEARER_TOKEN_TYPE, expectedToken),
                 authorizationHeaders.iterator().next());
     }
 
@@ -223,7 +223,7 @@ class Oauth2FeignClientInterceptorTest {
         Mockito.verify(accessTokenRequest, Mockito.times(2))
                 .setExistingToken(accessTokenCaptor.capture());
         List<OAuth2AccessToken> capturedRequests = accessTokenCaptor.getAllValues();
-        Assert.assertTrue(capturedRequests.contains(null));
-        Assert.assertTrue(capturedRequests.contains(accessToken));
+        Assertions.assertTrue(capturedRequests.contains(null));
+        Assertions.assertTrue(capturedRequests.contains(accessToken));
     }
 }

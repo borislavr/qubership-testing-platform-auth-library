@@ -54,21 +54,24 @@ public class GroupServiceTest {
         userGroupService = new UserGroupService(userIdContextHolder, usersService, userRolesContextHolder);
     }
 
-    @Test
-    public void onGroupService_GetUserGroup_LeadGroup() {
-        project = new Project();
-        userId = UUID.randomUUID();
-
+    private void fillAndCheckLeadsGroup(Project project, UUID userId, Set<String> userRoles) {
         Set<UUID> leads = new HashSet<>();
         leads.add(userId);
         project.setLeads(leads);
 
         Mockito.when(usersService.getUsersByProject(Mockito.any(UUID.class))).thenReturn(project);
         Mockito.when(userIdContextHolder.get()).thenReturn(Optional.of(userId));
-        Mockito.when(userRolesContextHolder.get()).thenReturn(Optional.of(Collections.emptySet()));
-
+        Mockito.when(userRolesContextHolder.get()).thenReturn(Optional.of(userRoles));
 
         assertEquals(Group.LEAD, userGroupService.getUserGroupByProjectId(UUID.randomUUID()));
+    }
+
+    @Test
+    public void onGroupService_GetUserGroup_LeadGroup() {
+        project = new Project();
+        userId = UUID.randomUUID();
+
+        fillAndCheckLeadsGroup(project, userId, Collections.emptySet());
     }
 
     @Test
@@ -81,7 +84,6 @@ public class GroupServiceTest {
         Mockito.when(userIdContextHolder.get()).thenReturn(Optional.of(userId));
         Mockito.when(userRolesContextHolder.get()).thenReturn(Optional.of(userRoles));
 
-
         assertEquals(Group.SUPPORT, userGroupService.getUserGroupByProjectId(UUID.randomUUID()));
     }
 
@@ -91,16 +93,7 @@ public class GroupServiceTest {
         userId = UUID.randomUUID();
         Set<String> userRoles = new HashSet<>(Collections.singletonList( Role.ATP_SUPPORT.name()));
 
-        Set<UUID> leads = new HashSet<>();
-        leads.add(userId);
-        project.setLeads(leads);
-
-        Mockito.when(usersService.getUsersByProject(Mockito.any(UUID.class))).thenReturn(project);
-        Mockito.when(userIdContextHolder.get()).thenReturn(Optional.of(userId));
-        Mockito.when(userRolesContextHolder.get()).thenReturn(Optional.of(userRoles));
-
-
-        assertEquals(Group.LEAD, userGroupService.getUserGroupByProjectId(UUID.randomUUID()));
+        fillAndCheckLeadsGroup(project, userId, userRoles);
     }
 
     @Test
@@ -115,7 +108,6 @@ public class GroupServiceTest {
         Mockito.when(usersService.getUsersByProject(Mockito.any(UUID.class))).thenReturn(project);
         Mockito.when(userIdContextHolder.get()).thenReturn(Optional.of(userId));
         Mockito.when(userRolesContextHolder.get()).thenReturn(Optional.of(Collections.emptySet()));
-
 
         assertEquals(Group.SUPPORT, userGroupService.getUserGroupByProjectId(UUID.randomUUID()));
     }

@@ -43,34 +43,14 @@ public class GlobalExceptionHandlerTest {
     @Test
     public void testReturnExceptionWithStackTrace() throws Exception {
         ReflectionTestUtils.setField(globalExceptionHandler,"includeStackTrace", true);
-        Exception exception = new EntityNotFoundException("EntityNotFound");
-
-        MockHttpServletRequest request =  new MockHttpServletRequest();
-        request.setServletPath("/test/response");
-        ResponseEntity<ErrorResponse> responseEntity = globalExceptionHandler.commonHandler(exception, request);
-        ErrorResponse errorResponse = responseEntity.getBody();
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        ErrorResponse errorResponse = fillAndCheckResponse();
         assertNotNull(errorResponse.trace);
-        assertEquals(500, errorResponse.status);
-        assertEquals("/test/response", errorResponse.path);
-        assertEquals(AtpException.DEFAULT_MESSAGE, errorResponse.message);
-        assertNotNull(errorResponse.timestamp);
     }
 
     @Test
     public void testReturnExceptionWithoutStackTrace() throws Exception {
-        Exception exception = new EntityNotFoundException("EntityNotFound");
-
-        MockHttpServletRequest request =  new MockHttpServletRequest();
-        request.setServletPath("/test/response");
-        ResponseEntity<ErrorResponse> responseEntity = globalExceptionHandler.commonHandler(exception, request);
-        ErrorResponse errorResponse = responseEntity.getBody();
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        ErrorResponse errorResponse = fillAndCheckResponse();
         assertNull(errorResponse.trace);
-        assertEquals(500, errorResponse.status);
-        assertEquals("/test/response", errorResponse.path);
-        assertEquals(AtpException.DEFAULT_MESSAGE, errorResponse.message);
-        assertNotNull(errorResponse.timestamp);
     }
 
     @Test
@@ -89,11 +69,27 @@ public class GlobalExceptionHandlerTest {
 
         ErrorResponse errorResponse = responseEntity.getBody();
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertNotNull(errorResponse);
         assertNull(errorResponse.trace);
         assertEquals(400, errorResponse.status);
         assertEquals("/test/response", errorResponse.path);
         assertEquals("Field 1 can not be null, Field 2 can not be null", errorResponse.message);
         assertNotNull(errorResponse.timestamp);
+    }
+
+    private ErrorResponse fillAndCheckResponse() throws Exception {
+        Exception exception = new EntityNotFoundException("EntityNotFound");
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setServletPath("/test/response");
+        ResponseEntity<ErrorResponse> responseEntity = globalExceptionHandler.commonHandler(exception, request);
+        ErrorResponse errorResponse = responseEntity.getBody();
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        assertNotNull(errorResponse);
+        assertEquals(500, errorResponse.status);
+        assertEquals("/test/response", errorResponse.path);
+        assertEquals(AtpException.DEFAULT_MESSAGE, errorResponse.message);
+        assertNotNull(errorResponse.timestamp);
+        return errorResponse;
     }
 
 }
