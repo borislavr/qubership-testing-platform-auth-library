@@ -399,7 +399,7 @@ public class EntityAccessAuthorizationComponentTest {
         }});
         Map<String, Map<UUID, Operations>> objectPermissions = new HashMap<String, Map<UUID, Operations>>(){{
             put(objectName, new HashMap<UUID, Operations>(){{
-                put(userId1, new Operations(true,true,true,true,true,true,true));
+                put(userId1, new Operations(true, true, true, true, true, true, true));
             }});
         }};
 
@@ -451,12 +451,12 @@ public class EntityAccessAuthorizationComponentTest {
         }});
         Map<String, Map<UUID, Operations>> projectPermissions = new HashMap<String, Map<UUID, Operations>>(){{
             put(objectName1, new HashMap<UUID, Operations>(){{
-                put(userId1, new Operations(true,true,true,true,true,true,true));
-                put(userId3, new Operations(true,true,true,true,true,true,true));
+                put(userId1, new Operations(true, true, true, true, true, true, true));
+                put(userId3, new Operations(true, true, true, true, true, true, true));
             }});
             put(objectName2, new HashMap<UUID, Operations>(){{
-                put(userId2, new Operations(true,true,true,true,true,true,true));
-                put(userId3, new Operations(true,true,true,true,true,true,true));
+                put(userId2, new Operations(true, true, true, true, true, true, true));
+                put(userId3, new Operations(true, true, true, true, true, true, true));
             }});
         }};
 

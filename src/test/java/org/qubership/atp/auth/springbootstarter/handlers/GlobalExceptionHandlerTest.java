@@ -39,20 +39,36 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 public class GlobalExceptionHandlerTest {
 
-    GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
+    /**
+     * Global Exception Handler for exceptions processing.
+     */
+    private final GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
+
+    /**
+     * Test returning exception with stacktrace.
+     * @throws Exception - in case processing exceptions in the GlobalExceptionHandler.
+     */
     @Test
     public void testReturnExceptionWithStackTrace() throws Exception {
-        ReflectionTestUtils.setField(globalExceptionHandler,"includeStackTrace", true);
+        ReflectionTestUtils.setField(globalExceptionHandler,"includeStackTrace",true);
         ErrorResponse errorResponse = fillAndCheckResponse();
         assertNotNull(errorResponse.trace);
     }
 
+    /**
+     * Test returning exception without stacktrace.
+     * @throws Exception - in case processing exceptions in the GlobalExceptionHandler.
+     */
     @Test
     public void testReturnExceptionWithoutStackTrace() throws Exception {
         ErrorResponse errorResponse = fillAndCheckResponse();
         assertNull(errorResponse.trace);
     }
 
+    /**
+     * Test MethodArgumentNotValidException.
+     * @throws Exception - in case processing exceptions in the GlobalExceptionHandler.
+     */
     @Test
     public void testHandleMethodArgumentNotValidException() throws Exception {
         BindingResult bindingResult = new MapBindingResult(new HashMap<>(), "objectName");
@@ -71,7 +87,7 @@ public class GlobalExceptionHandlerTest {
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         assertNotNull(errorResponse);
         assertNull(errorResponse.trace);
-        assertEquals(400, errorResponse.status);
+        assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.status);
         assertEquals("/test/response", errorResponse.path);
         assertEquals("Field 1 can not be null, Field 2 can not be null", errorResponse.message);
         assertNotNull(errorResponse.timestamp);
@@ -85,7 +101,7 @@ public class GlobalExceptionHandlerTest {
         ErrorResponse errorResponse = responseEntity.getBody();
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         assertNotNull(errorResponse);
-        assertEquals(500, errorResponse.status);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorResponse.status);
         assertEquals("/test/response", errorResponse.path);
         assertEquals(AtpException.DEFAULT_MESSAGE, errorResponse.message);
         assertNotNull(errorResponse.timestamp);
