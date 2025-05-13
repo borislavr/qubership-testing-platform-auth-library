@@ -32,7 +32,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 public class FeignCapabilityConfiguration {
 
     @Bean
-    public MicrometerCapability micrometerCapability(MeterRegistry meterRegistry) {
+    public MicrometerCapability micrometerCapability(final MeterRegistry meterRegistry) {
         return new MicrometerCapability(meterRegistry);
     }
 }

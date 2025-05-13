@@ -32,10 +32,21 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class FeignClientExceptionErrorDecoder implements ErrorDecoder {
-    private StringDecoder stringDecoder = new StringDecoder();
 
+    /**
+     * String decoder object.
+     */
+    private final StringDecoder stringDecoder = new StringDecoder();
+
+    /**
+     * Decode exception from response.
+     *
+     * @param methodKey String key of a method
+     * @param response Response received
+     * @return FeignClientException decoded.
+     */
     @Override
-    public FeignClientException decode(final String methodKey, Response response) {
+    public FeignClientException decode(final String methodKey, final Response response) {
         String message = "Null Response Body.";
         try {
             if (response.body() != null) {
@@ -44,7 +55,7 @@ public class FeignClientExceptionErrorDecoder implements ErrorDecoder {
                 message = stringDecoder.decode(response, String.class).toString();
             }
         } catch (IOException e) {
-            log.error(methodKey + "Error Deserializing response body from failed feign request response.", e);
+            log.error("{} Error Deserializing response body from failed feign request response.", methodKey, e);
         }
         return new FeignClientException(response.status(), message, response.request().httpMethod(),
                 response.headers(), response.request());
@@ -52,8 +63,12 @@ public class FeignClientExceptionErrorDecoder implements ErrorDecoder {
 
     /**
      * Decode response.
+     *
+     * @param response Response received
+     * @param type Type of body
+     * @return decoded exception object.
      */
-    private Object decode(Response response, Type type) throws IOException {
+    private Object decode(final Response response, final Type type) throws IOException {
         Response.Body body = response.body();
         if (String.class.equals(type)) {
             return Util.toString(body.asReader(Util.UTF_8));

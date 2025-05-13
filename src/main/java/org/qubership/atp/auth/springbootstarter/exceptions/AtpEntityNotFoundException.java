@@ -30,22 +30,31 @@ public class AtpEntityNotFoundException extends AtpException {
 
     /**
      * Example: Failed to find Environment Info entity.
+     *
+     * @param entity Entity name.
      */
-    public AtpEntityNotFoundException(String entity) {
+    public AtpEntityNotFoundException(final String entity) {
         super(format(DEFAULT_MESSAGE, entity));
     }
 
     /**
      * Example: Failed to find Environment Info entity by id: 123.
+     *
+     * @param entity Entity name
+     * @param id Reference field value.
      */
-    public AtpEntityNotFoundException(String entity, Object id) {
+    public AtpEntityNotFoundException(final String entity, final Object id) {
         super(format(DEFAULT_ID_MESSAGE, entity, id));
     }
 
     /**
      * Example: Failed to find Environment Info entity by execution request id: 322.
+     *
+     * @param entity Entity name
+     * @param refField Reference field name
+     * @param refFieldValue Reference field value.
      */
-    public AtpEntityNotFoundException(String entity, String refField, Object refFieldValue) {
+    public AtpEntityNotFoundException(final String entity, final String refField, final Object refFieldValue) {
         super(format(DEFAULT_REF_ID_MESSAGE, entity, refField, refFieldValue));
     }
 }

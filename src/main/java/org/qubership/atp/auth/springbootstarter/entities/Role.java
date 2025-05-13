@@ -17,6 +17,14 @@
 package org.qubership.atp.auth.springbootstarter.entities;
 
 public enum Role {
+
+    /**
+     * Admin role.
+     */
     ATP_ADMIN,
+
+    /**
+     * Support role.
+     */
     ATP_SUPPORT
 }

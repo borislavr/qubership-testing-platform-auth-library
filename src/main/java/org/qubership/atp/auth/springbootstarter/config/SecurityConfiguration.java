@@ -69,7 +69,7 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
      * Configure authentication.
      */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
+    public void configureGlobal(final AuthenticationManagerBuilder auth) {
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
         SimpleAuthorityMapper converter = new SimpleAuthorityMapper();
         converter.setConvertToUpperCase(true);
@@ -94,7 +94,7 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
      */
     @Bean
     @Primary
-    public AdapterDeploymentContext sslAdapterDeploymentContext(HttpClient sslHttpClient) throws Exception {
+    public AdapterDeploymentContext sslAdapterDeploymentContext(final HttpClient sslHttpClient) throws Exception {
         AdapterDeploymentContextFactoryBean factoryBean =
                 new AdapterDeploymentContextFactoryBean(keycloakConfigResolver);
         factoryBean.afterPropertiesSet();
@@ -117,16 +117,16 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
      */
     @Bean
     public FilterRegistrationBean keycloakAuthenticationProcessingFilterRegistrationBean(
-            KeycloakAuthenticationProcessingFilter filter) {
+            final KeycloakAuthenticationProcessingFilter filter) {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean<>(filter);
         registrationBean.setEnabled(false);
         return registrationBean;
     }
 
     @Bean("entityAccess")
-    public PolicyEnforcement entityAccess(UsersService usersService,
-                                          UserGroupService userGroupService,
-                                          DataContextHolder<Set<String>> userRolesContextHolder) {
+    public PolicyEnforcement entityAccess(final UsersService usersService,
+                                          final UserGroupService userGroupService,
+                                          final DataContextHolder<Set<String>> userRolesContextHolder) {
         return new EntityAccessEnforcement(usersService, userGroupService, userRolesContextHolder, serviceName);
     }
 
@@ -136,7 +136,7 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(final WebSecurity web) throws Exception {
         super.configure(web);
         web
                 .ignoring()
@@ -145,7 +145,7 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         super.configure(http);
         http
                 .headers()
@@ -168,9 +168,9 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
     }
 
     @Bean("userGroupService")
-    public UserGroupService userGroupService(DataContextHolder<UUID> userIdContextHolder,
-                                             UsersService usersService,
-                                             DataContextHolder<Set<String>> userRolesContextHolder) {
+    public UserGroupService userGroupService(final DataContextHolder<UUID> userIdContextHolder,
+                                             final UsersService usersService,
+                                             final DataContextHolder<Set<String>> userRolesContextHolder) {
         return new UserGroupService(userIdContextHolder, usersService, userRolesContextHolder);
     }
 }

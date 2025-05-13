@@ -21,54 +21,58 @@ import java.util.Map;
 
 import feign.Request;
 import feign.RetryableException;
+import lombok.Getter;
 
+@Getter
 public class FeignClientException extends RetryableException {
 
     private static final long serialVersionUID = 958858846136424604L;
+
+    /**
+     * Http Status code.
+     */
     private final Integer status;
+
+    /**
+     * Error message.
+     */
     private final String errorMessage;
+
+    /**
+     * Http Method.
+     */
     private final Request.HttpMethod httpMethod;
+
+    /**
+     * Http Request.
+     */
     private final Request request;
 
+    /**
+     * Http headers map.
+     */
     private final Map<String, Collection<String>> headers;
 
     /**
      * Constructor for {@link FeignClientException}.
+     *
+     * @param status Http Status code
+     * @param errorMessage Error message
+     * @param httpMethod Http Method
+     * @param headers Http headers map
+     * @param request Http Request.
      */
-    public FeignClientException(Integer status, String errorMessage, Request.HttpMethod httpMethod,
-                                Map<String, Collection<String>> headers, Request request) {
+    public FeignClientException(final Integer status,
+                                final String errorMessage,
+                                final Request.HttpMethod httpMethod,
+                                final Map<String, Collection<String>> headers,
+                                final Request request) {
         super(status, String.format("%d %s", status, errorMessage), httpMethod, null, request);
         this.status = status;
         this.errorMessage = errorMessage;
         this.headers = headers;
         this.httpMethod = httpMethod;
         this.request = request;
-    }
-
-    /**
-     * Http Status Code.
-     */
-    public Integer getStatus() {
-        return status;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public Request.HttpMethod getHttpMethod() {
-        return httpMethod;
-    }
-
-    public Request getRequest() {
-        return request;
-    }
-
-    /**
-     * FeignResponse Headers.
-     */
-    public Map<String, Collection<String>> getHeaders() {
-        return headers;
     }
 
 }

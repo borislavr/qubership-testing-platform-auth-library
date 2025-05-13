@@ -22,8 +22,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "ATP-0003")
 public class AtpKafkaListenerContainerFactoryException extends AtpException {
 
+    /**
+     * Default exception message.
+     */
     public static final String DEFAULT_MESSAGE = "Error during Kafka event processing";
 
+    /**
+     * Constructor.
+     */
     public AtpKafkaListenerContainerFactoryException() {
         super(DEFAULT_MESSAGE);
     }

@@ -51,37 +51,43 @@ public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PolicyEnforcement entityAccessEnforcement() {
         return new PolicyEnforcement() {
             @Override
-            public boolean checkAccess(Set<UUID> projectIdSet, String action) {
+            public boolean checkAccess(final Set<UUID> projectIdSet, final String action) {
                 return true;
             }
 
             @Override
-            public boolean checkAccess(UUID projectId, Operation action) {
+            public boolean checkAccess(final UUID projectId, final Operation action) {
                 return true;
             }
 
             @Override
-            public boolean checkAccess(String entityName, UUID projectId, Operation action) {
+            public boolean checkAccess(final String entityName, final UUID projectId, final Operation action) {
                 return true;
             }
 
             @Override
-            public boolean checkAccess(String entityName, Set<UUID> projectIdSet, Operation action) {
+            public boolean checkAccess(final String entityName, final Set<UUID> projectIdSet, final Operation action) {
                 return true;
             }
 
             @Override
-            public boolean checkAccess(String entityName, Set<UUID> projectIdSet, String action) {
+            public boolean checkAccess(final String entityName, final Set<UUID> projectIdSet, final String action) {
                 return true;
             }
 
             @Override
-            public boolean checkAccess(String entityName, UUID projectId, UUID objectId, Operation operation) {
+            public boolean checkAccess(final String entityName,
+                                       final UUID projectId,
+                                       final UUID objectId,
+                                       final Operation operation) {
                 return true;
             }
 
             @Override
-            public boolean checkAccess(String entityName, UUID projectId, Set<UUID> objectIds, Operation operation) {
+            public boolean checkAccess(final String entityName,
+                                       final UUID projectId,
+                                       final Set<UUID> objectIds,
+                                       final Operation operation) {
                 return true;
             }
 
@@ -101,12 +107,14 @@ public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
             }
 
             @Override
-            public boolean checkPoliciesForOperation(Project project, Operation operation) {
+            public boolean checkPoliciesForOperation(final Project project, final Operation operation) {
                 return true;
             }
 
             @Override
-            public boolean checkPoliciesForOperation(String entityName, Project project, Operation operation) {
+            public boolean checkPoliciesForOperation(final String entityName,
+                                                     final Project project,
+                                                     final Operation operation) {
                 return true;
             }
         };
@@ -117,12 +125,11 @@ public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
      * each request.
      */
     @Bean("relayRestTemplate")
-    public RestTemplate relayRestTemplate(RestTemplateLogInterceptor restTemplateLogInterceptor) {
+    public RestTemplate relayRestTemplate(final RestTemplateLogInterceptor restTemplateLogInterceptor) {
         RestTemplate restTemplate =
             new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
         restTemplate.getInterceptors().add(restTemplateLogInterceptor);
         return restTemplate;
-
     }
 
     /**
@@ -140,7 +147,7 @@ public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable();

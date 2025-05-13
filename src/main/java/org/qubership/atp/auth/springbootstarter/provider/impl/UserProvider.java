@@ -27,8 +27,17 @@ import org.qubership.atp.auth.springbootstarter.ssl.Provider;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserProvider implements Provider<UserInfo> {
+
+    /**
+     * User id for anonymous requests.
+     */
     private final UUID uuid = UUID.fromString("16df9e34-cf21-4360-b89c-785a4ed8f57d");
 
+    /**
+     * Get User Info from SecurityContextHolder.
+     *
+     * @return UserInfo object created and filled.
+     */
     @Override
     public UserInfo get() {
         Object principalObject = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -53,7 +62,7 @@ public class UserProvider implements Provider<UserInfo> {
             user.setRoles(new ArrayList<>(roles));
         } else {
             user.setId(uuid);
-            user.setUsername((String)principalObject);
+            user.setUsername((String) principalObject);
         }
         return user;
     }

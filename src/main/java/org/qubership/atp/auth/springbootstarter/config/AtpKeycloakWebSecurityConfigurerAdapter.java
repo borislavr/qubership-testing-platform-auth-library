@@ -104,7 +104,7 @@ public abstract class AtpKeycloakWebSecurityConfigurerAdapter
     }
 
     /**
-     * Keycloak pre auth actions filter registration bean.
+     * Keycloak pre-auth actions filter registration bean.
      *
      * @return filter registration bean
      */
@@ -139,7 +139,6 @@ public abstract class AtpKeycloakWebSecurityConfigurerAdapter
         return registration;
     }
 
-
     protected KeycloakCsrfRequestMatcher keycloakCsrfRequestMatcher() {
         return new KeycloakCsrfRequestMatcher();
     }
@@ -151,10 +150,8 @@ public abstract class AtpKeycloakWebSecurityConfigurerAdapter
     protected abstract SessionAuthenticationStrategy sessionAuthenticationStrategy();
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http
-                .csrf().requireCsrfProtectionMatcher(keycloakCsrfRequestMatcher())
+    protected void configure(final HttpSecurity http) throws Exception {
+        http.csrf().requireCsrfProtectionMatcher(keycloakCsrfRequestMatcher())
                 .and()
                 .sessionManagement()
                 .sessionAuthenticationStrategy(sessionAuthenticationStrategy())

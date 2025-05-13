@@ -38,11 +38,15 @@ import org.springframework.context.ApplicationContext;
 
 public class AnonymousSupportKeycloakAuthenticatedActionsFilter extends KeycloakAuthenticatedActionsFilter {
 
-    private static final Logger log = LoggerFactory.getLogger(AnonymousSupportKeycloakAuthenticatedActionsFilter.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AnonymousSupportKeycloakAuthenticatedActionsFilter.class);
 
     private ApplicationContext applicationContext;
     private AdapterDeploymentContext deploymentContext;
 
+    /**
+     * Constructor.
+     */
     public AnonymousSupportKeycloakAuthenticatedActionsFilter() {
         super();
     }
@@ -53,14 +57,29 @@ public class AnonymousSupportKeycloakAuthenticatedActionsFilter extends Keycloak
         deploymentContext = applicationContext.getBean(AdapterDeploymentContext.class);
     }
 
+    /**
+     * ApplicationContext Setter.
+     *
+     * @param applicationContext parameter
+     * @throws BeansException in case some bean exception.
+     */
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         super.setApplicationContext(applicationContext);
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * DoFilter method.
+     *
+     * @param request ServletRequest object
+     * @param response ServletResponse object
+     * @param chain Chain of filters
+     * @throws IOException in case some IO exception
+     * @throws ServletException in case servlet processing exception.
+     */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
         HttpFacade facade = new AnonymousSupportSimpleHttpFacade((HttpServletRequest) request,
                 (HttpServletResponse) response);
@@ -68,7 +87,7 @@ public class AnonymousSupportKeycloakAuthenticatedActionsFilter extends Keycloak
                 deploymentContext.resolveDeployment(facade), (OIDCHttpFacade) facade);
         boolean handled = handler.handledRequest();
         if (handled) {
-            log.debug("Authenticated filter handled request: {}", ((HttpServletRequest) request).getRequestURI());
+            LOGGER.debug("Authenticated filter handled request: {}", ((HttpServletRequest) request).getRequestURI());
         } else {
             chain.doFilter(request, response);
         }

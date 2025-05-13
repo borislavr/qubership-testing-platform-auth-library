@@ -52,10 +52,13 @@ public class FeignConfiguration {
 
     /**
      * Create {@link Encoder} bean.
+     *
+     * @param feignClientObjectMapper ObjectMapper bean
+     * @return Encoder object.
      */
     @Bean
     @Primary
-    public Encoder feignEncoder(ObjectMapper feignClientObjectMapper) {
+    public Encoder feignEncoder(final ObjectMapper feignClientObjectMapper) {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(feignClientObjectMapper);
         ObjectFactory<HttpMessageConverters> objectFactory = () -> {
             if (feignHttpMessageConverters == null) {

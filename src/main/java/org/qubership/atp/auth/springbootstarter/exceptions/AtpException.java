@@ -32,11 +32,19 @@ public class AtpException extends RuntimeException {
     public static final String DEFAULT_MESSAGE = "Internal Server Error. "
             + "Please contact the administrator for assistance";
 
+    /**
+     * Default constructor.
+     */
     public AtpException() {
         super(DEFAULT_MESSAGE);
     }
 
-    public AtpException(String message) {
+    /**
+     * Constructor from String exception message.
+     *
+     * @param message String exception message.
+     */
+    public AtpException(final String message) {
         super(message);
     }
 }
