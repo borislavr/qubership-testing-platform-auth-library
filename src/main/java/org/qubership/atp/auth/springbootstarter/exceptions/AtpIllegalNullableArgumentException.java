@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "ATP-0002")
 public class AtpIllegalNullableArgumentException extends AtpException {
 
+    /**
+     * Default parametrized message with Reference field name and EntityName parameters.
+     */
     public static final String DEFAULT_MESSAGE = "Found illegal nullable %s for the validated %s";
 
     /**

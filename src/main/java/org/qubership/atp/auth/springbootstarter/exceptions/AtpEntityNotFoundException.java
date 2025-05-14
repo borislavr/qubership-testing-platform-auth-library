@@ -24,8 +24,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "ATP-0001")
 public class AtpEntityNotFoundException extends AtpException {
 
+    /**
+     * Default parametrized message with EntityName parameter.
+     */
     public static final String DEFAULT_MESSAGE = "Failed to find %s entity";
+
+    /**
+     * Default parametrized message with EntityName and Reference field value parameters.
+     */
     public static final String DEFAULT_ID_MESSAGE = "Failed to find %s with id: %s";
+
+    /**
+     * Default parametrized message with EntityName, Reference field name and Reference field value parameters.
+     */
     public static final String DEFAULT_REF_ID_MESSAGE = "Failed to find %s by %s: %s";
 
     /**

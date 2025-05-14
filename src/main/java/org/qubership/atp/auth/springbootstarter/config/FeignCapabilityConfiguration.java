@@ -31,6 +31,12 @@ import io.micrometer.core.instrument.MeterRegistry;
 )
 public class FeignCapabilityConfiguration {
 
+    /**
+     * Create and return MicrometerCapability registered in the meterRegistry.
+     *
+     * @param meterRegistry Registry of metrics
+     * @return a new MicrometerCapability object registered in the meterRegistry.
+     */
     @Bean
     public MicrometerCapability micrometerCapability(final MeterRegistry meterRegistry) {
         return new MicrometerCapability(meterRegistry);

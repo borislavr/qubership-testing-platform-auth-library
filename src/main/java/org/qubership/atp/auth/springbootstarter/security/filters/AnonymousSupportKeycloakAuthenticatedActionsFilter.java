@@ -51,6 +51,9 @@ public class AnonymousSupportKeycloakAuthenticatedActionsFilter extends Keycloak
         super();
     }
 
+    /**
+     * Init Filter Bean.
+     */
     @Override
     protected void initFilterBean() {
         super.initFilterBean();

@@ -24,6 +24,7 @@ import feign.RetryableException;
 import lombok.Getter;
 
 @Getter
+@SuppressWarnings("checkstyle:HiddenField")
 public class FeignClientException extends RetryableException {
 
     private static final long serialVersionUID = 958858846136424604L;

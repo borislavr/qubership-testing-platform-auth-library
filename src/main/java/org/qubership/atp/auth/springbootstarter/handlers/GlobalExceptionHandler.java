@@ -50,9 +50,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /**
+     * Include Stack Trace (true/false) configuration variable.
+     */
     @Value("${atp.handler.exception.include-stack-trace:false}")
     private boolean includeStackTrace;
 
+    /**
+     * FeignClient ObjectMapper bean.
+     */
     @Autowired
     private ObjectMapper feignClientObjectMapper;
 

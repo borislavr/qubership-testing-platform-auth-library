@@ -60,13 +60,22 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @Profile("default")
 public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapter {
 
+    /**
+     * Service Name set in the service configuration.
+     */
     @Value("${spring.application.name}")
     private String serviceName;
+
+    /**
+     * Content Security Policy to be applied.
+     */
     @Value("${atp-auth.headers.content-security-policy:default-src 'self' *}")
     private String contentSecurityPolicy;
 
     /**
      * Configure authentication.
+     *
+     * @param auth AuthenticationManagerBuilder object to be configured.
      */
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) {
@@ -77,12 +86,22 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
 
+    /**
+     * Create SessionAuthenticationStrategy bean.
+     *
+     * @return a new NullAuthenticatedSessionStrategy object.
+     */
     @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new NullAuthenticatedSessionStrategy();
     }
 
+    /**
+     * Create KeycloakAuthenticatedActionsFilter bean.
+     *
+     * @return a new AnonymousSupportKeycloakAuthenticatedActionsFilter object.
+     */
     @Bean
     @Override
     protected KeycloakAuthenticatedActionsFilter keycloakAuthenticatedActionsFilter() {
@@ -91,6 +110,9 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
 
     /**
      * AdapterDeploymentContext is used by the keycloak lib for requests to the keycloak server.
+     *
+     * @param sslHttpClient HttpClient to set in Keycloak Deployment properties
+     * @return a new AdapterDeploymentContext configured.
      */
     @Bean
     @Primary
@@ -102,7 +124,7 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
 
         return new AdapterDeploymentContext() {
             @Override
-            public KeycloakDeployment resolveDeployment(HttpFacade facade) {
+            public KeycloakDeployment resolveDeployment(final HttpFacade facade) {
                 KeycloakDeployment keycloakDeployment = deploymentContext.resolveDeployment(facade);
                 keycloakDeployment.setClient(sslHttpClient);
                 return keycloakDeployment;
@@ -111,8 +133,9 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
     }
 
     /**
-     * Return {@link FilterRegistrationBean} filter for keycloak authentication.
+     * Return {@link FilterRegistrationBean} filter for keycloak authentication, initially disabled.
      *
+     * @param filter KeycloakAuthenticationProcessingFilter bean
      * @return {@link FilterRegistrationBean}
      */
     @Bean
@@ -123,6 +146,14 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
         return registrationBean;
     }
 
+    /**
+     * Create entityAccess PolicyEnforcement bean from parameters given.
+     *
+     * @param usersService Users Service
+     * @param userGroupService User Group Service
+     * @param userRolesContextHolder User Roles Cache
+     * @return a new EntityAccessEnforcement created and configured.
+     */
     @Bean("entityAccess")
     public PolicyEnforcement entityAccess(final UsersService usersService,
                                           final UserGroupService userGroupService,
@@ -130,11 +161,22 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
         return new EntityAccessEnforcement(usersService, userGroupService, userRolesContextHolder, serviceName);
     }
 
+    /**
+     * Create and return User Info Provider.
+     *
+     * @return a new UserProvider object.
+     */
     @Bean("userInfoProvider")
     public Provider<UserInfo> userInfoProvider() {
         return new UserProvider();
     }
 
+    /**
+     * Configure WebSecurity parameter object.
+     *
+     * @param web WebSecurity object to be configured
+     * @throws Exception in case various configuration exceptions.
+     */
     @Override
     public void configure(final WebSecurity web) throws Exception {
         super.configure(web);
@@ -144,6 +186,12 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
                 .antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
+    /**
+     * Configure HttpSecurity.
+     *
+     * @param http HttpSecurity object to be configured
+     * @throws Exception in case various configuration exceptions.
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         super.configure(http);
@@ -167,6 +215,14 @@ public class SecurityConfiguration extends AtpKeycloakWebSecurityConfigurerAdapt
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
+    /**
+     * Create UserGroupService bean from parameters provided.
+     *
+     * @param userIdContextHolder Cache of users
+     * @param usersService Users Service
+     * @param userRolesContextHolder Cache of user roles
+     * @return UserGroupService bean created and configured.
+     */
     @Bean("userGroupService")
     public UserGroupService userGroupService(final DataContextHolder<UUID> userIdContextHolder,
                                              final UsersService usersService,

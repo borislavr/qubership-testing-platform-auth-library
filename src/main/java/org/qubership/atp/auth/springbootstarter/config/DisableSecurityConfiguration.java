@@ -41,11 +41,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Profile("disable-security")
 public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Content Security Policy to be applied.
+     */
     @Value("${atp-auth.headers.content-security-policy:default-src 'self' *some-domain.some-cloud}")
     private String contentSecurityPolicy;
 
     /**
      * Allow all PolicyEnforcement, will be used where you do not need to check permissions.
+     *
+     * @return PolicyEnforcement object configured to allow all operations and all roles.
      */
     @Bean("entityAccess")
     public PolicyEnforcement entityAccessEnforcement() {
@@ -123,6 +128,9 @@ public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * Return a simple {@link RestTemplate} instead of a RestTemplate that applies a user token to
      * each request.
+     *
+     * @param restTemplateLogInterceptor RestTemplateLogInterceptor object
+     * @return RestTemplate with SimpleClientHttpRequestFactory and the interceptor added.
      */
     @Bean("relayRestTemplate")
     public RestTemplate relayRestTemplate(final RestTemplateLogInterceptor restTemplateLogInterceptor) {
@@ -135,17 +143,30 @@ public class DisableSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * Return a simple {@link WebClient} instead of a webclient that applies a user token to each
      * request.
+     *
+     * @return simple WebClient.
      */
     @Bean("relayWebClient")
     public WebClient relayWebClient() {
         return WebClient.builder().build();
     }
 
+    /**
+     * Create and return User Info Provider with disabled security.
+     *
+     * @return a new DisableSecurityUserProvider object.
+     */
     @Bean("userInfoProvider")
     public Provider<UserInfo> userInfoProvider() {
         return new DisableSecurityUserProvider();
     }
 
+    /**
+     * Configure HttpSecurity as disabled security and all resources are permitted.
+     *
+     * @param http HttpSecurity object to be configured
+     * @throws Exception in case various configuration exceptions.
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
