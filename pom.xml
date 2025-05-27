@@ -12,12 +12,10 @@
 
     <groupId>org.qubership.atp.auth</groupId>
     <artifactId>atp-auth-spring-boot-starter</artifactId>
-    <version>${revision}</version>
+    <version>1.2.59-SNAPSHOT</version>
 
     <properties>
-        <revision>1.2.59-SNAPSHOT</revision>
-        <atp.common.version>0.0.42-SNAPSHOT</atp.common.version>
-        <atp.codechecks.version>1.1.0-SNAPSHOT</atp.codechecks.version>
+        <atp.common.version>0.0.42</atp.common.version>
         <java.version>21</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -51,7 +49,7 @@
     </developers>
     <scm>
         <connection>scm:git:https//github.com/Netcracker/qubership-testing-platform-auth-library.git</connection>
-        <developerConnection>scm:git:https://github.com:Netcracker/qubership-testing-platform-auth-library.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/Netcracker/qubership-testing-platform-auth-library.git</developerConnection>
         <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-auth-library/tree/main</url>
     </scm>
 
@@ -433,7 +431,7 @@
                 <repository>
                     <id>github</id>
                     <name>GitHub Packages</name>
-                    <url>https://maven.pkg.github.com/Netcracker/qubership-testing-platform-common-library</url>
+                    <url>https://maven.pkg.github.com/Netcracker/qubership-testing-platform-auth-library</url>
                 </repository>
             </distributionManagement>
         </profile>
@@ -511,134 +509,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${maven.pmd.plugin.version}</version>
-                <configuration>
-                    <rulesets>
-                        <ruleset>org/qubership/atp/codechecks/pmd-ruleset.xml</ruleset>
-                    </rulesets>
-                    <printFailingErrors>true</printFailingErrors>
-                    <failOnViolation>false</failOnViolation>
-                    <targetDirectory>${project.build.directory}/pmd</targetDirectory>
-                    <targetJdk>${maven.compiler.target}</targetJdk>
-                    <includeTests>false</includeTests>
-                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-                    <linkXRef>false</linkXRef>
-                    <format>xml</format>
-                    <minimumTokens>100</minimumTokens>
-                    <language>java</language>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>pmd</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>pmd</goal>
-                            <goal>cpd</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.qubership.atp.codechecks</groupId>
-                        <artifactId>qubership-atp-codechecks</artifactId>
-                        <version>${atp.codechecks.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
-                <configuration>
-                    <configLocation>org/qubership/atp/codechecks/checkstyle.xml
-                    </configLocation>
-                    <outputFile>
-                        ${project.build.directory}/checkstyle/checkstyle-result.xml
-                    </outputFile>
-                    <linkXRef>false</linkXRef>
-                    <failsOnError>false</failsOnError>
-                    <failOnViolation>false</failOnViolation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>verify-style</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>7.8.2</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.qubership.atp.codechecks</groupId>
-                        <artifactId>qubership-atp-codechecks</artifactId>
-                        <version>${atp.codechecks.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs.maven.plugin.version}</version>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <spotbugsXmlOutput>true</spotbugsXmlOutput>
-                    <effort>Max</effort>
-                    <failOnError>false</failOnError>
-                    <threshold>Low</threshold>
-                    <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs/xml</spotbugsXmlOutputDirectory>
-                    <includeFilterFile>org/qubership/atp/codechecks/findbugs-filter.xml</includeFilterFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>analyze-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.qubership.atp.codechecks</groupId>
-                        <artifactId>qubership-atp-codechecks</artifactId>
-                        <version>${atp.codechecks.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>9.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm-analysis</artifactId>
-                        <version>9.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm-commons</artifactId>
-                        <version>9.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm-tree</artifactId>
-                        <version>9.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm-util</artifactId>
-                        <version>9.5</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
