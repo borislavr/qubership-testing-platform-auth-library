@@ -36,7 +36,7 @@ import feign.codec.ErrorDecoder;
 
 @Configuration
 public class FeignConfiguration {
-    
+
     private volatile HttpMessageConverters feignHttpMessageConverters;
 
     @Bean
@@ -44,6 +44,11 @@ public class FeignConfiguration {
         return Logger.Level.FULL;
     }
 
+    /**
+     * Create Feign Client Exception Error Decoder bean in case there is no ErrorDecoder bean yet.
+     *
+     * @return FeignClientExceptionErrorDecoder object.
+     */
     @Bean
     @ConditionalOnMissingBean(value = ErrorDecoder.class)
     public FeignClientExceptionErrorDecoder commonFeignErrorDecoder() {
@@ -52,10 +57,13 @@ public class FeignConfiguration {
 
     /**
      * Create {@link Encoder} bean.
+     *
+     * @param feignClientObjectMapper ObjectMapper bean
+     * @return Encoder object.
      */
     @Bean
     @Primary
-    public Encoder feignEncoder(ObjectMapper feignClientObjectMapper) {
+    public Encoder feignEncoder(final ObjectMapper feignClientObjectMapper) {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(feignClientObjectMapper);
         ObjectFactory<HttpMessageConverters> objectFactory = () -> {
             if (feignHttpMessageConverters == null) {

@@ -31,12 +31,35 @@ import lombok.Data;
 @Data
 public class UserInfo {
 
+    /**
+     * User id.
+     */
     @Id
     private UUID id;
+
+    /**
+     * User login name.
+     */
     private String username;
+
+    /**
+     * User first name.
+     */
     private String firstName;
+
+    /**
+     * User last name.
+     */
     private String lastName;
+
+    /**
+     * User email.
+     */
     private String email;
+
+    /**
+     * List of user roles.
+     */
     private List<String> roles;
 
     /**
@@ -55,14 +78,14 @@ public class UserInfo {
      *
      * @param role to add to roles.
      */
-    public void addRole(String role) {
+    public void addRole(final String role) {
         if (isNull(this.roles)) {
             this.roles = new ArrayList<>();
         }
         this.roles.add(role);
     }
 
-    private boolean isNotEmpty(String data) {
+    private boolean isNotEmpty(final String data) {
         return data != null && data.length() != 0;
     }
 }

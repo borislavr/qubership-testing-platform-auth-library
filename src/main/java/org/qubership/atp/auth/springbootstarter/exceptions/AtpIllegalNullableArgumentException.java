@@ -24,16 +24,28 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "ATP-0002")
 public class AtpIllegalNullableArgumentException extends AtpException {
 
+    /**
+     * Default parametrized message with Reference field name and EntityName parameters.
+     */
     public static final String DEFAULT_MESSAGE = "Found illegal nullable %s for the validated %s";
 
-    public AtpIllegalNullableArgumentException(String message) {
+    /**
+     * Exception with fixed message.
+     *
+     * @param message String exception message.
+     */
+    public AtpIllegalNullableArgumentException(final String message) {
         super(message);
     }
 
     /**
+     * Exception with parametrized message.
      * Example: Found illegal nullable execution request id for the validated Environment Info.
+     *
+     * @param field Reference field name
+     * @param entity Entity name.
      */
-    public AtpIllegalNullableArgumentException(String field, String entity) {
+    public AtpIllegalNullableArgumentException(final String field, final String entity) {
         super(format(DEFAULT_MESSAGE, field, entity));
     }
 }

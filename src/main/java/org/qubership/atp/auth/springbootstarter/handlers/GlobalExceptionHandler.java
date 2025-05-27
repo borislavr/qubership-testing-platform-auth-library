@@ -50,9 +50,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /**
+     * Include Stack Trace (true/false) configuration variable.
+     */
     @Value("${atp.handler.exception.include-stack-trace:false}")
     private boolean includeStackTrace;
 
+    /**
+     * FeignClient ObjectMapper bean.
+     */
     @Autowired
     private ObjectMapper feignClientObjectMapper;
 
@@ -64,21 +70,17 @@ public class GlobalExceptionHandler {
      * @return ErrorResponse entity
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<ErrorResponse> commonHandler(Exception exception, HttpServletRequest request)
-            throws Exception {
-
+    public ResponseEntity<ErrorResponse> commonHandler(Exception exception,
+                                                       final HttpServletRequest request) throws Exception {
         if (exception instanceof AccessDeniedException) {
             throw exception;
         }
-
         if (exception instanceof FeignClientException) {
             return getFeignClientExceptionResponse(exception);
         }
-
         if (exception instanceof MethodArgumentNotValidException) {
             exception = new AtpRequestValidationException((MethodArgumentNotValidException) exception);
         }
-
         boolean isAtpException = exception instanceof AtpException;
         if (!isAtpException) {
             log.error("Found internal server error", exception);
@@ -87,11 +89,8 @@ public class GlobalExceptionHandler {
 
         ResponseStatus responseStatus =
                 AnnotatedElementUtils.findMergedAnnotation(exception.getClass(), ResponseStatus.class);
-
         HttpStatus status = (responseStatus == null) ? HttpStatus.INTERNAL_SERVER_ERROR : responseStatus.code();
-
         String reason = (responseStatus == null) ? Strings.EMPTY : responseStatus.reason();
-
         ErrorResponse error = ErrorResponse.builder()
                 .status(status.value())
                 .path(request.getServletPath())
@@ -103,12 +102,10 @@ public class GlobalExceptionHandler {
         if (includeStackTrace) {
             error.setTrace(Throwables.getStackTraceAsString(exception));
         }
-
-        return ResponseEntity.status(status)
-                .body(error);
+        return ResponseEntity.status(status).body(error);
     }
 
-    private ResponseEntity<ErrorResponse> getFeignClientExceptionResponse(Exception exception) throws Exception {
+    private ResponseEntity<ErrorResponse> getFeignClientExceptionResponse(final Exception exception) throws Exception {
         FeignClientException feignException = (FeignClientException) exception;
         String errorMessage = feignException.getErrorMessage();
         JsonNode errorNode = feignClientObjectMapper.readTree(errorMessage);
@@ -127,7 +124,6 @@ public class GlobalExceptionHandler {
                 .reason(reason)
                 .build();
 
-        return ResponseEntity.status(valueOf(status))
-                .body(error);
+        return ResponseEntity.status(valueOf(status)).body(error);
     }
 }

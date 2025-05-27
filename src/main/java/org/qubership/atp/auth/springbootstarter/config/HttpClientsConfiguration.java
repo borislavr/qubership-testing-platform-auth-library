@@ -40,9 +40,12 @@ public class HttpClientsConfiguration {
 
     /**
      * Http client with trusted ssl certificate.
+     *
+     * @param sslContext SSLContext object
+     * @return HttpClient object created and configured.
      */
     @Bean
-    public HttpClient sslHttpClient(SSLContext sslContext) {
+    public HttpClient sslHttpClient(final SSLContext sslContext) {
         return HttpClients.custom()
                 .setSSLSocketFactory(new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE))
                 .build();
@@ -50,9 +53,12 @@ public class HttpClientsConfiguration {
 
     /**
      * RequestFactory with ignore ssl certificate verification.
+     *
+     * @param sslHttpClient HttpClient object
+     * @return ClientHttpRequestFactory factory created and configured.
      */
     @Bean
-    public ClientHttpRequestFactory sslRequestFactory(HttpClient sslHttpClient) {
+    public ClientHttpRequestFactory sslRequestFactory(final HttpClient sslHttpClient) {
         HttpComponentsClientHttpRequestFactory sslRequestFactory =
                 new HttpComponentsClientHttpRequestFactory();
 
@@ -62,6 +68,8 @@ public class HttpClientsConfiguration {
 
     /**
      * Ssl context which ignore ssl verification.
+     *
+     * @return SSLContext object created and configured.
      */
     @Bean
     @ConditionalOnProperty(
@@ -78,13 +86,17 @@ public class HttpClientsConfiguration {
 
     /**
      * SSL context into which self-signed certificates are uploaded.
+     *
+     * @param trustManagerFactoryProvider Provider<TrustManagerFactory> bean
+     * @return SSLContext object created and configured.
      */
     @Bean
     @ConditionalOnProperty(
             value = "atp-auth.ssl.certificate.verify",
             matchIfMissing = false
     )
-    public SSLContext selfSignedSslContext(Provider<TrustManagerFactory> trustManagerFactoryProvider) throws Exception {
+    public SSLContext selfSignedSslContext(final Provider<TrustManagerFactory> trustManagerFactoryProvider)
+            throws Exception {
         TrustManagerFactory trustManagerFactory = trustManagerFactoryProvider.get();
         SSLContext context = SSLContext.getInstance("TLS");
         context.init(null, trustManagerFactory.getTrustManagers(), null);

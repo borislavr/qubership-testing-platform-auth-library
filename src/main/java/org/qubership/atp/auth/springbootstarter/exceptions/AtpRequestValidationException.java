@@ -28,8 +28,10 @@ public class AtpRequestValidationException extends AtpException {
 
     /**
      * Build AtpRequestValidationException with validation messages separated by comma.
+     *
+     * @param e MethodArgumentNotValidException faced.
      */
-    public AtpRequestValidationException(MethodArgumentNotValidException e) {
+    public AtpRequestValidationException(final MethodArgumentNotValidException e) {
         super(e.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining(", ")));

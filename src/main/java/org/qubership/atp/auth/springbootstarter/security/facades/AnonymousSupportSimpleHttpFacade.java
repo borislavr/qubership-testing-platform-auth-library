@@ -27,11 +27,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AnonymousSupportSimpleHttpFacade extends SimpleHttpFacade {
 
-    public AnonymousSupportSimpleHttpFacade(HttpServletRequest request,
-                                            HttpServletResponse response) {
+    /**
+     * Constructor.
+     *
+     * @param request HttpServletRequest parameter
+     * @param response HttpServletResponse parameter.
+     */
+    public AnonymousSupportSimpleHttpFacade(final HttpServletRequest request,
+                                            final HttpServletResponse response) {
         super(request, response);
     }
 
+    /**
+     * Get KeycloakSecurityContext from SecurityContextHolder.
+     *
+     * @return KeycloakSecurityContext object.
+     */
     @Override
     public KeycloakSecurityContext getSecurityContext() {
         SecurityContext context = SecurityContextHolder.getContext();

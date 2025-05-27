@@ -31,20 +31,50 @@ import lombok.Data;
 public class Project implements Serializable {
 
     private static final long serialVersionUID = -7878008971600457198L;
+
+    /**
+     * Project identifier.
+     */
     private UUID uuid;
+
+    /**
+     * Set of user uuids having QA/TA Lead role for the Project.
+     */
     private Set<UUID> leads;
+
+    /**
+     * Set of user uuids having QA/TA Engineer role for the Project.
+     */
     private Set<UUID> qaTaEngineers;
+
+    /**
+     * Set of user uuids having DevOps Engineer role for the Project.
+     */
     private Set<UUID> devOpsEngineers;
+
+    /**
+     * Set of user uuids having Runner role for the Project.
+     */
     private Set<UUID> atpRunners;
+
+    /**
+     * Set of user uuids having Support role.
+     */
     private Set<UUID> atpSupports;
+
+    /**
+     * Roles permissions to perform operations against objects.
+     */
     private Permissions permissions;
 
     /**
      * Return {@link Group} for currently authenticated user by project.
      *
-     * @return {@link Group}
+     * @param userId to check groups
+     * @param userRoles Set of user role names
+     * @return {@link Group} the most privileged Group the User belongs to.
      */
-    public Group getUserGroup(UUID userId, Set<String> userRoles) {
+    public Group getUserGroup(final UUID userId, final Set<String> userRoles) {
         if (!Objects.isNull(leads) && leads.contains(userId)) {
             return Group.LEAD;
         }
@@ -68,11 +98,11 @@ public class Project implements Serializable {
         return Group.DEFAULT;
     }
 
-    private boolean isSupportGroupByUserId(UUID userId) {
+    private boolean isSupportGroupByUserId(final UUID userId) {
         return !Objects.isNull(atpSupports) && atpSupports.contains(userId);
     }
 
-    private boolean isSupportGroup(Set<String> userRoles) {
+    private boolean isSupportGroup(final Set<String> userRoles) {
         return !CollectionUtils.isEmpty(userRoles) && userRoles
                 .stream()
                 .anyMatch(role -> Role.ATP_SUPPORT.name().equalsIgnoreCase(role));
