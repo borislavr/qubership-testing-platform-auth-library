@@ -46,9 +46,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:https//github.com/Netcracker/qubership-testing-platform-auth-library.git</connection>
-        <developerConnection>scm:git:https://github.com/Netcracker/qubership-testing-platform-auth-library.git</developerConnection>
-        <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-auth-library/tree/main</url>
+        <connection>scm:git:https//github.com/borislavr/qubership-testing-platform-auth-library.git</connection>
+        <developerConnection>scm:git:https://github.com/borislavr/qubership-testing-platform-auth-library.git</developerConnection>
+        <url>scm:git:https://github.com/borislavr/qubership-testing-platform-auth-library.git</url>
       <tag>HEAD</tag>
   </scm>
 
@@ -430,7 +430,7 @@
                 <repository>
                     <id>github</id>
                     <name>GitHub Packages</name>
-                    <url>https://maven.pkg.github.com/Netcracker/qubership-testing-platform-auth-library</url>
+                    <url>https://maven.pkg.github.com/borislavr/qubership-testing-platform-auth-library</url>
                 </repository>
             </distributionManagement>
         </profile>
