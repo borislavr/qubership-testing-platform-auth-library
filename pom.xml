@@ -312,6 +312,7 @@
         </dependencies>
     </dependencyManagement>
 
+
     <repositories>
         <!-- Maven Central repository for release versions -->
         <repository>
@@ -418,6 +419,7 @@
                 </repository>
             </distributionManagement>
         </profile>
+
 
         <profile>
             <id>github</id>
