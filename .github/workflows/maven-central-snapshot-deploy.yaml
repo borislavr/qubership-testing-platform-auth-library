@@ -35,7 +35,7 @@ jobs:
       - name: Deploy Maven Snapshot
         uses: netcracker/qubership-workflow-hub/actions/maven-snapshot-deploy@v1.0.1
         with:
-          java-version: '21
+          java-version: '21'
           target-store: 'github'
           additional-mvn-args: '-Pgithub'
           maven-username: ${{ github.actor }}
